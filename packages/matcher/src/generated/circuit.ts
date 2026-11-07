@@ -14,6 +14,153 @@ export type Circuit = {
   },
   "instructions": [
     {
+      "name": "cancelOffer",
+      "docs": [
+        "Cancels an open offer (maker only). Allowed after expiry if still open.",
+        "Refunds entire escrow balance to an existing maker-owned offered-mint token account,",
+        "closes the escrow ATA, sends rent to the maker, sets status Cancelled."
+      ],
+      "discriminator": [
+        92,
+        203,
+        223,
+        40,
+        92,
+        89,
+        53,
+        119
+      ],
+      "accounts": [
+        {
+          "name": "maker",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "offer",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  111,
+                  102,
+                  102,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "offer.maker",
+                "account": "offer"
+              },
+              {
+                "kind": "account",
+                "path": "offer.nonce",
+                "account": "offer"
+              }
+            ]
+          }
+        },
+        {
+          "name": "offeredMint"
+        },
+        {
+          "name": "escrowAuthority",
+          "docs": [
+            "Anchor seeds + bump constraints against stored offer data."
+          ],
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  101,
+                  115,
+                  99,
+                  114,
+                  111,
+                  119
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "offer"
+              }
+            ]
+          }
+        },
+        {
+          "name": "escrowAta",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "escrowAuthority"
+              },
+              {
+                "kind": "account",
+                "path": "tokenProgram"
+              },
+              {
+                "kind": "account",
+                "path": "offeredMint"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140,
+                151,
+                37,
+                143,
+                78,
+                36,
+                137,
+                241,
+                187,
+                61,
+                16,
+                41,
+                20,
+                142,
+                13,
+                131,
+                11,
+                90,
+                19,
+                153,
+                218,
+                255,
+                16,
+                132,
+                4,
+                142,
+                123,
+                216,
+                219,
+                233,
+                248,
+                89
+              ]
+            }
+          }
+        },
+        {
+          "name": "makerTokenAccount",
+          "writable": true
+        },
+        {
+          "name": "tokenProgram",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        }
+      ],
+      "args": []
+    },
+    {
       "name": "createOffer",
       "docs": [
         "Creates an offer and escrows the maker's offered tokens."
@@ -234,6 +381,161 @@ export type Circuit = {
         }
       ],
       "args": []
+    },
+    {
+      "name": "refundExpired",
+      "docs": [
+        "Permissionlessly refunds an expired open offer to the maker.",
+        "Caller pays fees only; recipient is always the maker."
+      ],
+      "discriminator": [
+        118,
+        153,
+        164,
+        244,
+        40,
+        128,
+        242,
+        250
+      ],
+      "accounts": [
+        {
+          "name": "caller",
+          "docs": [
+            "Pays transaction fees only; must never receive escrow tokens or rent."
+          ],
+          "signer": true
+        },
+        {
+          "name": "offer",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  111,
+                  102,
+                  102,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "offer.maker",
+                "account": "offer"
+              },
+              {
+                "kind": "account",
+                "path": "offer.nonce",
+                "account": "offer"
+              }
+            ]
+          }
+        },
+        {
+          "name": "maker",
+          "docs": [
+            "Receives escrow ATA rent on close. Must be the offer maker."
+          ],
+          "writable": true
+        },
+        {
+          "name": "offeredMint"
+        },
+        {
+          "name": "escrowAuthority",
+          "docs": [
+            "Anchor seeds + bump constraints against stored offer data."
+          ],
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  101,
+                  115,
+                  99,
+                  114,
+                  111,
+                  119
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "offer"
+              }
+            ]
+          }
+        },
+        {
+          "name": "escrowAta",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "escrowAuthority"
+              },
+              {
+                "kind": "account",
+                "path": "tokenProgram"
+              },
+              {
+                "kind": "account",
+                "path": "offeredMint"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140,
+                151,
+                37,
+                143,
+                78,
+                36,
+                137,
+                241,
+                187,
+                61,
+                16,
+                41,
+                20,
+                142,
+                13,
+                131,
+                11,
+                90,
+                19,
+                153,
+                218,
+                255,
+                16,
+                132,
+                4,
+                142,
+                123,
+                216,
+                219,
+                233,
+                248,
+                89
+              ]
+            }
+          }
+        },
+        {
+          "name": "makerTokenAccount",
+          "writable": true
+        },
+        {
+          "name": "tokenProgram",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        }
+      ],
+      "args": []
     }
   ],
   "accounts": [
@@ -266,6 +568,19 @@ export type Circuit = {
   ],
   "events": [
     {
+      "name": "offerCancelled",
+      "discriminator": [
+        45,
+        42,
+        175,
+        214,
+        51,
+        192,
+        154,
+        9
+      ]
+    },
+    {
       "name": "offerCreated",
       "discriminator": [
         31,
@@ -276,6 +591,19 @@ export type Circuit = {
         45,
         157,
         87
+      ]
+    },
+    {
+      "name": "offerExpired",
+      "discriminator": [
+        50,
+        165,
+        49,
+        70,
+        32,
+        186,
+        35,
+        229
       ]
     },
     {
@@ -322,6 +650,21 @@ export type Circuit = {
       "code": 6005,
       "name": "insufficientBalance",
       "msg": "The maker's token account has insufficient balance"
+    },
+    {
+      "code": 6006,
+      "name": "notMaker",
+      "msg": "Only the offer maker may perform this action"
+    },
+    {
+      "code": 6007,
+      "name": "offerNotOpen",
+      "msg": "The offer is not open"
+    },
+    {
+      "code": 6008,
+      "name": "notExpired",
+      "msg": "The offer has not expired"
     }
   ],
   "types": [
@@ -390,6 +733,29 @@ export type Circuit = {
       }
     },
     {
+      "name": "offerCancelled",
+      "docs": [
+        "Emitted when a maker cancels an open offer and receives the escrow refund."
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "offer",
+            "type": "pubkey"
+          },
+          {
+            "name": "maker",
+            "type": "pubkey"
+          },
+          {
+            "name": "refundedAmount",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
       "name": "offerCreated",
       "docs": [
         "Emitted when a maker creates an offer and deposits tokens into escrow."
@@ -424,6 +790,29 @@ export type Circuit = {
           {
             "name": "expiresAt",
             "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "offerExpired",
+      "docs": [
+        "Emitted when an expired open offer is refunded permissionlessly to the maker."
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "offer",
+            "type": "pubkey"
+          },
+          {
+            "name": "maker",
+            "type": "pubkey"
+          },
+          {
+            "name": "refundedAmount",
+            "type": "u64"
           }
         ]
       }

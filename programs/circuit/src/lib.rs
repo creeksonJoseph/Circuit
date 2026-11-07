@@ -43,4 +43,17 @@ pub mod circuit {
             expires_at,
         )
     }
+
+    /// Cancels an open offer (maker only). Allowed after expiry if still open.
+    /// Refunds entire escrow balance to an existing maker-owned offered-mint token account,
+    /// closes the escrow ATA, sends rent to the maker, sets status Cancelled.
+    pub fn cancel_offer(ctx: Context<CancelOffer>) -> Result<()> {
+        instructions::cancel_offer::handle_cancel_offer(ctx)
+    }
+
+    /// Permissionlessly refunds an expired open offer to the maker.
+    /// Caller pays fees only; recipient is always the maker.
+    pub fn refund_expired(ctx: Context<RefundExpired>) -> Result<()> {
+        instructions::refund_expired::handle_refund_expired(ctx)
+    }
 }

@@ -251,7 +251,10 @@ describe("create_offer", () => {
 
   it("fails when maker_offered_ata has wrong authority (ConstraintTokenOwner)", async () => {
     const other = anchor.web3.Keypair.generate();
-    const sig = await provider.connection.requestAirdrop(other.publicKey, anchor.web3.LAMPORTS_PER_SOL);
+    const sig = await provider.connection.requestAirdrop(
+      other.publicKey,
+      anchor.web3.LAMPORTS_PER_SOL,
+    );
     await provider.connection.confirmTransaction(sig, "confirmed");
     const otherAta = await createAssociatedTokenAccount(
       provider.connection,
@@ -262,7 +265,17 @@ describe("create_offer", () => {
       TOKEN_PROGRAM_ID,
       ASSOCIATED_TOKEN_PROGRAM_ID,
     );
-    await mintTo(provider.connection, maker.payer, offeredMint, otherAta, makerPubkey, 5_000_000n, [], undefined, TOKEN_PROGRAM_ID);
+    await mintTo(
+      provider.connection,
+      maker.payer,
+      offeredMint,
+      otherAta,
+      makerPubkey,
+      5_000_000n,
+      [],
+      undefined,
+      TOKEN_PROGRAM_ID,
+    );
     try {
       await createOfferTx(nextNonce(), { makerOfferedAta: otherAta });
       expect.fail("should have failed");
@@ -300,7 +313,9 @@ describe("create_offer", () => {
 
   it("fails when wrong escrow authority PDA supplied (ConstraintSeeds)", async () => {
     try {
-      await createOfferTx(nextNonce(), { escrowAuthority: anchor.web3.Keypair.generate().publicKey });
+      await createOfferTx(nextNonce(), {
+        escrowAuthority: anchor.web3.Keypair.generate().publicKey,
+      });
       expect.fail("should have failed");
     } catch (err) {
       expectAnchorError(err, "ConstraintSeeds");

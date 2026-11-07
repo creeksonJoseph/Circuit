@@ -20,4 +20,13 @@ pub enum CircuitError {
 
     #[msg("The maker's token account has insufficient balance")]
     InsufficientBalance,
+
+    #[msg("Only the offer maker may perform this action")]
+    NotMaker,
+
+    #[msg("The offer is not open")]
+    OfferNotOpen,
+
+    #[msg("The offer has not expired")]
+    NotExpired,
 }
