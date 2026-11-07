@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools==78.1.1", "wheel==0.48.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "circuit-sdk"
+version = "0.1.0"
+description = "CIRCUIT Python SDK scaffold"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "LicenseRef-Proprietary"
+authors = [{ name = "CIRCUIT" }]
+dependencies = []
+
+[dependency-groups]
+dev = [
+  "pytest==9.2.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+circuit_sdk = ["idl/*.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-q"

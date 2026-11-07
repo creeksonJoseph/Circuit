@@ -1,0 +1,13 @@
+node_modules
+dist
+build
+target
+test-ledger
+.anchor
+.surfpool
+.venv
+package-lock.json
+Cargo.lock
+*.tsbuildinfo
+packages/sdk/src/circuit_sdk/idl
+packages/matcher/src/generated

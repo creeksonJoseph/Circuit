@@ -1,0 +1,26 @@
+{
+  "name": "@circuit/matcher",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Off-chain three-party cycle matcher for CIRCUIT",
+  "license": "UNLICENSED",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@anchor-lang/core": "1.2.2",
+    "@solana/web3.js": "1.99.0"
+  },
+  "devDependencies": {
+    "@types/node": "26.6.6",
+    "typescript": "5.9.3",
+    "vitest": "5.1.0"
+  }
+}

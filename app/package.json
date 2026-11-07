@@ -1,0 +1,23 @@
+{
+  "name": "@circuit/app",
+  "version": "0.1.0",
+  "private": true,
+  "description": "CIRCUIT React demonstration application",
+  "license": "UNLICENSED",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint src"
+  },
+  "dependencies": {
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "5.2.0",
+    "vite": "7.3.7",
+    "vite-plugin-node-polyfills": "0.28.0"
+  }
+}
