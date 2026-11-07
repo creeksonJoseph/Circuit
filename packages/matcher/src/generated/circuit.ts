@@ -536,6 +536,396 @@ export type Circuit = {
         }
       ],
       "args": []
+    },
+    {
+      "name": "settleCycle",
+      "docs": [
+        "Permissionlessly atomically settles a three-offer cycle (A offers X for Y,",
+        "B offers Y for Z, C offers Z for X). No maker or taker signatures required."
+      ],
+      "discriminator": [
+        171,
+        180,
+        39,
+        74,
+        141,
+        164,
+        40,
+        217
+      ],
+      "accounts": [
+        {
+          "name": "offerA",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  111,
+                  102,
+                  102,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "offerA.maker",
+                "account": "offer"
+              },
+              {
+                "kind": "account",
+                "path": "offerA.nonce",
+                "account": "offer"
+              }
+            ]
+          }
+        },
+        {
+          "name": "offerB",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  111,
+                  102,
+                  102,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "offerB.maker",
+                "account": "offer"
+              },
+              {
+                "kind": "account",
+                "path": "offerB.nonce",
+                "account": "offer"
+              }
+            ]
+          }
+        },
+        {
+          "name": "offerC",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  111,
+                  102,
+                  102,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "offerC.maker",
+                "account": "offer"
+              },
+              {
+                "kind": "account",
+                "path": "offerC.nonce",
+                "account": "offer"
+              }
+            ]
+          }
+        },
+        {
+          "name": "mintX"
+        },
+        {
+          "name": "mintY"
+        },
+        {
+          "name": "mintZ"
+        },
+        {
+          "name": "escrowAuthorityA",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  101,
+                  115,
+                  99,
+                  114,
+                  111,
+                  119
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "offerA"
+              }
+            ]
+          }
+        },
+        {
+          "name": "escrowAuthorityB",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  101,
+                  115,
+                  99,
+                  114,
+                  111,
+                  119
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "offerB"
+              }
+            ]
+          }
+        },
+        {
+          "name": "escrowAuthorityC",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  101,
+                  115,
+                  99,
+                  114,
+                  111,
+                  119
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "offerC"
+              }
+            ]
+          }
+        },
+        {
+          "name": "escrowAtaA",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "escrowAuthorityA"
+              },
+              {
+                "kind": "account",
+                "path": "tokenProgram"
+              },
+              {
+                "kind": "account",
+                "path": "mintX"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140,
+                151,
+                37,
+                143,
+                78,
+                36,
+                137,
+                241,
+                187,
+                61,
+                16,
+                41,
+                20,
+                142,
+                13,
+                131,
+                11,
+                90,
+                19,
+                153,
+                218,
+                255,
+                16,
+                132,
+                4,
+                142,
+                123,
+                216,
+                219,
+                233,
+                248,
+                89
+              ]
+            }
+          }
+        },
+        {
+          "name": "escrowAtaB",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "escrowAuthorityB"
+              },
+              {
+                "kind": "account",
+                "path": "tokenProgram"
+              },
+              {
+                "kind": "account",
+                "path": "mintY"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140,
+                151,
+                37,
+                143,
+                78,
+                36,
+                137,
+                241,
+                187,
+                61,
+                16,
+                41,
+                20,
+                142,
+                13,
+                131,
+                11,
+                90,
+                19,
+                153,
+                218,
+                255,
+                16,
+                132,
+                4,
+                142,
+                123,
+                216,
+                219,
+                233,
+                248,
+                89
+              ]
+            }
+          }
+        },
+        {
+          "name": "escrowAtaC",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "escrowAuthorityC"
+              },
+              {
+                "kind": "account",
+                "path": "tokenProgram"
+              },
+              {
+                "kind": "account",
+                "path": "mintZ"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140,
+                151,
+                37,
+                143,
+                78,
+                36,
+                137,
+                241,
+                187,
+                61,
+                16,
+                41,
+                20,
+                142,
+                13,
+                131,
+                11,
+                90,
+                19,
+                153,
+                218,
+                255,
+                16,
+                132,
+                4,
+                142,
+                123,
+                216,
+                219,
+                233,
+                248,
+                89
+              ]
+            }
+          }
+        },
+        {
+          "name": "destCReceivesX",
+          "writable": true
+        },
+        {
+          "name": "destAReceivesY",
+          "writable": true
+        },
+        {
+          "name": "destBReceivesZ",
+          "writable": true
+        },
+        {
+          "name": "excessRefundA",
+          "writable": true
+        },
+        {
+          "name": "excessRefundB",
+          "writable": true
+        },
+        {
+          "name": "excessRefundC",
+          "writable": true
+        },
+        {
+          "name": "makerA",
+          "writable": true
+        },
+        {
+          "name": "makerB",
+          "writable": true
+        },
+        {
+          "name": "makerC",
+          "writable": true
+        },
+        {
+          "name": "tokenProgram",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        }
+      ],
+      "args": []
     }
   ],
   "accounts": [
@@ -567,6 +957,19 @@ export type Circuit = {
     }
   ],
   "events": [
+    {
+      "name": "cycleSettled",
+      "discriminator": [
+        161,
+        82,
+        193,
+        119,
+        38,
+        164,
+        168,
+        198
+      ]
+    },
     {
       "name": "offerCancelled",
       "discriminator": [
@@ -665,9 +1068,111 @@ export type Circuit = {
       "code": 6008,
       "name": "notExpired",
       "msg": "The offer has not expired"
+    },
+    {
+      "code": 6009,
+      "name": "settlementExpired",
+      "msg": "The settlement cycle has expired"
+    },
+    {
+      "code": 6010,
+      "name": "insufficientEscrowBalance",
+      "msg": "The escrow account has insufficient balance for the settlement"
+    },
+    {
+      "code": 6011,
+      "name": "invalidSettlementCycle",
+      "msg": "The offer cycle amounts or mints do not form a valid settlement cycle"
+    },
+    {
+      "code": 6012,
+      "name": "duplicateOffer",
+      "msg": "Duplicate offer in the settlement cycle"
+    },
+    {
+      "code": 6013,
+      "name": "duplicateMaker",
+      "msg": "Duplicate maker in the settlement cycle"
+    },
+    {
+      "code": 6014,
+      "name": "duplicateOfferedMint",
+      "msg": "Duplicate offered mint in the settlement cycle"
     }
   ],
   "types": [
+    {
+      "name": "cycleSettled",
+      "docs": [
+        "Emitted when a three-offer settlement cycle is atomically settled.",
+        "Distinguishes agreed settlement amounts from excess refunds."
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "offerA",
+            "type": "pubkey"
+          },
+          {
+            "name": "offerB",
+            "type": "pubkey"
+          },
+          {
+            "name": "offerC",
+            "type": "pubkey"
+          },
+          {
+            "name": "makerA",
+            "type": "pubkey"
+          },
+          {
+            "name": "makerB",
+            "type": "pubkey"
+          },
+          {
+            "name": "makerC",
+            "type": "pubkey"
+          },
+          {
+            "name": "mintX",
+            "type": "pubkey"
+          },
+          {
+            "name": "mintY",
+            "type": "pubkey"
+          },
+          {
+            "name": "mintZ",
+            "type": "pubkey"
+          },
+          {
+            "name": "agreedAmountA",
+            "type": "u64"
+          },
+          {
+            "name": "agreedAmountB",
+            "type": "u64"
+          },
+          {
+            "name": "agreedAmountC",
+            "type": "u64"
+          },
+          {
+            "name": "excessRefundedA",
+            "type": "u64"
+          },
+          {
+            "name": "excessRefundedB",
+            "type": "u64"
+          },
+          {
+            "name": "excessRefundedC",
+            "type": "u64"
+          }
+        ]
+      }
+    },
     {
       "name": "offer",
       "docs": [

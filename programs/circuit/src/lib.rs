@@ -56,4 +56,10 @@ pub mod circuit {
     pub fn refund_expired(ctx: Context<RefundExpired>) -> Result<()> {
         instructions::refund_expired::handle_refund_expired(ctx)
     }
+
+    /// Permissionlessly atomically settles a three-offer cycle (A offers X for Y,
+    /// B offers Y for Z, C offers Z for X). No maker or taker signatures required.
+    pub fn settle_cycle(ctx: Context<SettleCycle>) -> Result<()> {
+        instructions::settle_cycle::handle_settle_cycle(ctx)
+    }
 }

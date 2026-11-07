@@ -29,4 +29,22 @@ pub enum CircuitError {
 
     #[msg("The offer has not expired")]
     NotExpired,
+
+    #[msg("The settlement cycle has expired")]
+    SettlementExpired,
+
+    #[msg("The escrow account has insufficient balance for the settlement")]
+    InsufficientEscrowBalance,
+
+    #[msg("The offer cycle amounts or mints do not form a valid settlement cycle")]
+    InvalidSettlementCycle,
+
+    #[msg("Duplicate offer in the settlement cycle")]
+    DuplicateOffer,
+
+    #[msg("Duplicate maker in the settlement cycle")]
+    DuplicateMaker,
+
+    #[msg("Duplicate offered mint in the settlement cycle")]
+    DuplicateOfferedMint,
 }

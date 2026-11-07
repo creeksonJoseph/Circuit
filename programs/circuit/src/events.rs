@@ -34,3 +34,24 @@ pub struct OfferExpired {
     pub maker: Pubkey,
     pub refunded_amount: u64,
 }
+
+/// Emitted when a three-offer settlement cycle is atomically settled.
+/// Distinguishes agreed settlement amounts from excess refunds.
+#[event]
+pub struct CycleSettled {
+    pub offer_a: Pubkey,
+    pub offer_b: Pubkey,
+    pub offer_c: Pubkey,
+    pub maker_a: Pubkey,
+    pub maker_b: Pubkey,
+    pub maker_c: Pubkey,
+    pub mint_x: Pubkey,
+    pub mint_y: Pubkey,
+    pub mint_z: Pubkey,
+    pub agreed_amount_a: u64,
+    pub agreed_amount_b: u64,
+    pub agreed_amount_c: u64,
+    pub excess_refunded_a: u64,
+    pub excess_refunded_b: u64,
+    pub excess_refunded_c: u64,
+}
