@@ -29,9 +29,10 @@ These decisions override any earlier proposal that conflicts with them:
   TypeScript.
 - The matcher (`packages/matcher`) and integration tests (`tests`) remain
   TypeScript because they use the Anchor TypeScript client and web3.js 1.99.0.
-- Authoritative build/test commands live in `BUILD_AND_TEST.md`. The SDK
-  commands are `npm run test:sdk` and `npm run build:sdk`; the frontend commands
-  are `npm run dev -w @circuit/app` and `npm run build -w @circuit/app`.
+- Authoritative build/test commands live in `BUILD_AND_TEST.md`. SDK commands:
+  `npm run test:sdk`, `npm run build:sdk`, or from `packages/sdk` run
+  `uv sync --locked && uv run pytest` / `uv build --wheel`. Do not use `pip`.
+- Frontend commands: `npm run dev -w @circuit/app` and `npm run build -w @circuit/app`.
 
 ## Engineering rules
 

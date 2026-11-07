@@ -11,3 +11,9 @@ PROTOCOL_VERSION = 1
 
 #: PDA seed for the protocol configuration account.
 CONFIG_SEED = b"config"
+
+#: PDA seed for offer accounts: [OFFER_SEED, maker, nonce_le]
+OFFER_SEED = b"offer"
+
+#: PDA seed for escrow authority PDAs: [ESCROW_SEED, offer_pubkey]
+ESCROW_SEED = b"escrow"

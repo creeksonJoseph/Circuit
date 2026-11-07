@@ -22,6 +22,9 @@ packages/sdk/build/
 packages/sdk/dist/
 *.egg-info/
 
+# Local tooling / plans
+.kilo/
+
 # Environment and secrets
 .env
 .env.*
