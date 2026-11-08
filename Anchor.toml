@@ -18,6 +18,9 @@ wallet = "~/.config/solana/id.json"
 [scripts]
 test = "npm run test:integration -w @circuit/tests"
 
+[test]
+startup_wait = 120000
+
 [workspace]
 idls = "packages/sdk/src/circuit_sdk/idl"
 types = "packages/matcher/src/generated"
