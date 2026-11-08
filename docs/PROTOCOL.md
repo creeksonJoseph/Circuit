@@ -1,37 +1,24 @@
-# CIRCUIT — Protocol Notes
+# CIRCUIT Protocol
 
-**Status:** planned design. Stage 1 implements only a `ProtocolConfig` PDA and
-an `initialize` instruction. Nothing below is implemented on-chain yet.
+CIRCUIT coordinates full-fill, three-party circular exchanges of original SPL
+tokens. The program is the source of truth; the matcher only proposes a
+settlement.
 
-## MVP scope
+## Offer model
 
-- Three-party circular exchanges.
-- Original SPL Token Program only.
-- Standing, full-fill offers.
-- Program-controlled escrow.
-- Off-chain matching.
-- Permissionless atomic settlement.
-- No partial fills, fees, Token-2022, or admin settlement authority.
+An `Offer` records:
 
-## Planned accounts
+- maker and unique nonce;
+- offered and requested mints;
+- offered and requested integer amounts;
+- creation and expiry timestamps;
+- lifecycle status and PDA bumps.
 
-| Account | Seeds | Owner | Purpose |
-|---|---|---|---|
-| `ProtocolConfig` | `[b"config"]` | CIRCUIT program | Layout version and bump (Stage 1) |
-| `Offer` | `[b"offer", maker, nonce_le]` | CIRCUIT program | Offer terms and status |
-| Escrow authority | `[b"escrow", offer_key]` | System program | PDA authority for escrow tokens |
-| Escrow token account | ATA of `(escrow_authority, offered_mint, SPL Token)` | SPL Token program | Holds deposited offered tokens |
+The offer PDA is derived from `[b"offer", maker, nonce_le]`. Its escrow
+authority is derived from `[b"escrow", offer]`, and the escrow ATA holds the
+offered tokens under that PDA authority.
 
-## Planned instructions
-
-| Instruction | Signer | Purpose |
-|---|---|---|
-| `create_offer` | Maker | Create the offer PDA, create/reuse escrow ATA, deposit offered tokens |
-| `cancel_offer` | Maker | Refund escrow and mark `Cancelled` |
-| `refund_expired` | Anyone | Refund the original maker after expiry and mark `Expired` |
-| `settle_cycle` | Anyone | Validate three offers and execute three atomic transfers |
-
-## Planned state machine
+## Lifecycle
 
 ```text
 Open -> Settled
@@ -39,32 +26,47 @@ Open -> Cancelled
 Open -> Expired
 ```
 
-All transitions are one-way. Settlement requires `now < expires_at`; expiry
-refund requires `now >= expires_at`.
+Creation deposits the offered amount. The maker may cancel while open. Anyone
+may refund an expired offer to its maker. Settlement consumes three open,
+unexpired offers and closes their escrow accounts.
 
-## Planned settlement order
+## Three-party settlement
 
-For offers `[A, B, C]`:
+For offers A, B, and C:
 
 ```text
-A receives B's offered asset
-B receives C's offered asset
-C receives A's offered asset
+A offers X and requests Y
+B offers Y and requests Z
+C offers Z and requests X
 ```
 
-The matcher proposes the order. The program independently validates every mint,
-amount, PDA, escrow balance, destination, status, and expiry before executing
-the three `invoke_signed` SPL Token transfers.
+Settlement transfers:
 
-## Current Stage 1 account
+- A's escrow X to C's X token account;
+- B's escrow Y to A's Y token account;
+- C's escrow Z to B's Z token account.
 
-```rust
-#[account]
-pub struct ProtocolConfig {
-    pub version: u8,
-    pub bump: u8,
-}
-```
+The program independently checks offer PDAs, makers, mints, amounts, statuses,
+expiry, escrow authorities, token accounts, and balances. It then performs all
+three SPL Token transfers in one atomic instruction. Destination and refund
+token accounts must already exist; settlement does not create them.
 
-The `initialize` instruction creates this PDA once. A second call fails because
-the account already exists.
+## Account requirements
+
+The settlement instruction consumes 22 accounts:
+
+1. three writable offers;
+2. three read-only mints;
+3. three escrow authority PDAs;
+4. three writable escrow ATAs;
+5. three writable counterparty destinations;
+6. three writable excess-refund accounts;
+7. three writable maker rent recipients;
+8. the original SPL Token program.
+
+See [Architecture](../ARCHITECTURE.md), [TypeScript Matcher](TYPESCRIPT_MATCHER.md),
+and [Examples](EXAMPLES.md).
+
+---
+
+[Documentation index](README.md) · [Security](SECURITY.md)

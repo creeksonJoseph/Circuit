@@ -1,64 +1,61 @@
 # CIRCUIT
 
 CIRCUIT is a permissionless Solana protocol for persistent exchange offers,
-off-chain discovery of three-party cycles, and atomic settlement through
-program-controlled escrow.
+off-chain discovery of compatible three-party cycles, and atomic settlement
+through program-controlled escrow.
+
+It solves the coordination problem where three independent participants each
+have an asset another participant wants, but no direct two-party trade exists.
+Offers are deposited into escrow, matched off-chain, and validated again by
+the on-chain program before all three transfers execute atomically.
+
+## Current deployment
+
+- **Network:** Solana Devnet
+- **Program ID:** `4Jr3Ptxa7ZnnbYpNcuPDS5AGswBQpGgyqzBHU3h1PNhc`
 
 ## Components
 
-- `programs/circuit/` — Rust/Anchor protocol program and escrow lifecycle.
+- `programs/circuit/` — Rust/Anchor offer, escrow, lifecycle, and settlement
+  program.
 - `packages/matcher/` — TypeScript RPC discovery, cycle matching, account
-  resolution, and settlement-plan construction.
+  resolution, and settlement instruction construction.
 - `packages/sdk/` — Python SDK managed with `uv`.
-- `tests/` — Anchor/TypeScript protocol and matcher integration tests.
-- `docs/` — public protocol and security documentation.
+- `tests/` — Anchor and TypeScript protocol tests.
 
-The unfinished React demo is intentionally not part of the final repository.
-The matcher is untrusted: the on-chain program independently validates every
-settlement and remains the source of truth.
+## Start here
 
-## Requirements
+1. Read the [technical documentation hub](docs/README.md).
+2. Follow [Getting Started](docs/GETTING_STARTED.md).
+3. Choose the [Python SDK](docs/PYTHON_SDK.md) or
+   [TypeScript Matcher](docs/TYPESCRIPT_MATCHER.md) integration guide.
 
-- Rust, Cargo, and the Solana/Anchor toolchain described by the project
-  scripts and `Anchor.toml`
-- Node.js 26+ and npm 11+
-- Python 3.11+ and `uv`
+The [Examples](docs/EXAMPLES.md), [Protocol](docs/PROTOCOL.md), and
+[Architecture](ARCHITECTURE.md) guides explain the account model and complete
+settlement flow. [Deployment](docs/DEPLOYMENT.md) and
+[Security](docs/SECURITY.md) cover operations and trust boundaries.
 
-## Common commands
+## Quick commands
 
 ```bash
 npm install
 npm run build
-npm run test
+npm test
 npm run typecheck
-npm run format:check
 ```
 
-For the Python SDK:
+Python SDK commands:
 
 ```bash
 npm run test:sdk
 npm run build:sdk
 ```
 
-The narrow integration suite requires a built program and a running validator:
+The integration suite requires a built program and a running validator:
 
 ```bash
 npm run test:integration
 ```
 
-## Deployment
-
-The program has been deployed and verified on Solana Devnet. The deployed
-program ID is
-`4Jr3Ptxa7ZnnbYpNcuPDS5AGswBQpGgyqzBHU3h1PNhc`. See
-[`docs/STAGE8_DEVNET_DEPLOYMENT.md`](docs/STAGE8_DEVNET_DEPLOYMENT.md) for the
-deployment evidence and its limitations. The repository does not include
-private keys or deploy keypairs.
-
-## Public documentation
-
-- [`ARCHITECTURE.md`](ARCHITECTURE.md) — protocol architecture and invariants.
-- [`docs/PROTOCOL.md`](docs/PROTOCOL.md) — account model and instructions.
-- [`docs/SECURITY.md`](docs/SECURITY.md) — security rules and threat model.
-- [`AGENTS.MD`](AGENTS.MD) — repository engineering guidance.
+See [Troubleshooting](docs/TROUBLESHOOTING.md) when setup or RPC operations
+fail.
