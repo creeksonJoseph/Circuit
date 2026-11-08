@@ -64,8 +64,8 @@ The settlement instruction consumes 22 accounts:
 7. three writable maker rent recipients;
 8. the original SPL Token program.
 
-See [Architecture](../ARCHITECTURE.md), [TypeScript Matcher](TYPESCRIPT_MATCHER.md),
-and [Examples](EXAMPLES.md).
+See [TypeScript Matcher](TYPESCRIPT_MATCHER.md), [Security](SECURITY.md), and
+[Examples](EXAMPLES.md).
 
 ---
 

@@ -43,8 +43,8 @@ Destination mapping is fixed:
 - B escrow → A-owned Y account;
 - C escrow → B-owned Z account.
 
-See [Protocol](PROTOCOL.md), [Architecture](../ARCHITECTURE.md), and
-[Examples](EXAMPLES.md). Use [Troubleshooting](TROUBLESHOOTING.md) for RPC or
+See [Protocol](PROTOCOL.md), [Security](SECURITY.md), and [Examples](EXAMPLES.md).
+Use [Troubleshooting](TROUBLESHOOTING.md) for RPC or
 account-resolution failures.
 
 ---

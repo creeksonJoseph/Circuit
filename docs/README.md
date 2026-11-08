@@ -12,8 +12,6 @@ reference.**
 
 ## Understanding CIRCUIT
 
-- [Architecture](../ARCHITECTURE.md) — system boundaries, trust model, and
-  responsibilities.
 - [Protocol](PROTOCOL.md) — offers, escrow accounts, lifecycle, and the 22
   settlement accounts.
 - [Security](SECURITY.md) — validation rules, trust boundaries, and MVP

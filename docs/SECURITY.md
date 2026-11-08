@@ -38,5 +38,5 @@ transactions with real assets.
 
 ---
 
-[Documentation index](README.md) · [Architecture](../ARCHITECTURE.md) ·
-[Protocol](PROTOCOL.md)
+[Documentation index](README.md) · [Protocol](PROTOCOL.md) ·
+[TypeScript Matcher](TYPESCRIPT_MATCHER.md)

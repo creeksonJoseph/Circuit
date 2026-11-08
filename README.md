@@ -30,9 +30,8 @@ the on-chain program before all three transfers execute atomically.
 3. Choose the [Python SDK](docs/PYTHON_SDK.md) or
    [TypeScript Matcher](docs/TYPESCRIPT_MATCHER.md) integration guide.
 
-The [Examples](docs/EXAMPLES.md), [Protocol](docs/PROTOCOL.md), and
-[Architecture](ARCHITECTURE.md) guides explain the account model and complete
-settlement flow. [Deployment](docs/DEPLOYMENT.md) and
+The [Examples](docs/EXAMPLES.md) and [Protocol](docs/PROTOCOL.md) guides
+explain the account model and complete settlement flow. [Deployment](docs/DEPLOYMENT.md) and
 [Security](docs/SECURITY.md) cover operations and trust boundaries.
 
 ## Quick commands
