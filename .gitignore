@@ -24,6 +24,27 @@ packages/sdk/dist/
 
 # Local tooling / plans
 .kilo/
+BUILD_AND_TEST.md
+ENVIRONMENT_REPORT.md
+PROPOSED_DEPENDENCIES.md
+PROPOSED_PROJECT_STRUCTURE.md
+STAGE1_REPORT.md
+TECHNICAL_PLAN.md
+thought process.md
+bug review.md
+docs/PROGRESS.md
+docs/STAGE2_REPORT.md
+docs/STAGE3_DISCOVERY.md
+docs/STAGE3_REPORT.md
+docs/STAGE4_DISCOVERY.md
+docs/STAGE4_REPORT.md
+docs/STAGE5_DISCOVERY.md
+docs/STAGE5_REPORT.md
+docs/STAGE5_FINAL_INTEGRATION_REPORT.md
+docs/STAGE6_REPORT.md
+docs/STAGE7_DISCOVERY.md
+docs/STAGE7_REPORT.md
+docs/TASK_BOARD.md
 
 # Environment and secrets
 .env

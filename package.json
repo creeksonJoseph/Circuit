@@ -6,7 +6,6 @@
   "license": "UNLICENSED",
   "workspaces": [
     "packages/matcher",
-    "app",
     "tests"
   ],
   "engines": {
@@ -22,9 +21,9 @@
     "test:sdk": "bash scripts/test-sdk.sh",
     "test:integration": "npm run test:integration -w @circuit/tests",
     "lint": "eslint .",
-    "format": "prettier --write \"app/**/*.{js,jsx,css,html}\" \"packages/matcher/**/*.ts\" \"tests/**/*.ts\" \"*.{json,mjs}\" \"tsconfig.base.json\"",
-    "format:check": "prettier --check \"app/**/*.{js,jsx,css,html}\" \"packages/matcher/**/*.ts\" \"tests/**/*.ts\" \"*.{json,mjs}\" \"tsconfig.base.json\"",
-    "clean": "rm -rf target node_modules packages/matcher/dist app/dist tests/dist packages/sdk/build packages/sdk/dist"
+    "format": "prettier --write \"packages/matcher/**/*.ts\" \"tests/**/*.ts\" \"*.{json,mjs}\" \"tsconfig.base.json\"",
+    "format:check": "prettier --check \"packages/matcher/**/*.ts\" \"tests/**/*.ts\" \"*.{json,mjs}\" \"tsconfig.base.json\"",
+    "clean": "rm -rf target node_modules packages/matcher/dist tests/dist packages/sdk/build packages/sdk/dist"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",
