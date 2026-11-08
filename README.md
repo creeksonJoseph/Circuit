@@ -1,5 +1,8 @@
 # CIRCUIT
 
+_**"What if three people could exchange things even when none
+of them can trade directly with the next person?"**_
+
 CIRCUIT is a permissionless Solana protocol for persistent exchange offers,
 off-chain discovery of compatible three-party cycles, and atomic settlement
 through program-controlled escrow.
