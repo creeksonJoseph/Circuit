@@ -33,7 +33,19 @@ function expectAnyError(err: unknown, needles: string[]): void {
 }
 
 describe("matcher_settle (Stage 5 integration)", () => {
-  anchor.setProvider(anchor.AnchorProvider.env());
+  // The matcher discovers, resolves, and rechecks at `confirmed`. Anchor's
+  // default provider commitment is `processed`, so writes would be visible to
+  // the test before they are visible to the matcher's confirmed reads. Build a
+  // provider (and connection) that confirms at the same commitment the matcher
+  // uses to avoid a processed/confirmed visibility race in fixture setup.
+  const envProvider = anchor.AnchorProvider.env();
+  anchor.setProvider(
+    new anchor.AnchorProvider(
+      new anchor.web3.Connection(envProvider.connection.rpcEndpoint, "confirmed"),
+      envProvider.wallet,
+      { commitment: "confirmed", preflightCommitment: "confirmed" },
+    ),
+  );
   const provider = anchor.getProvider() as anchor.AnchorProvider;
   const program = new Program<Circuit>(idl as unknown as Circuit, provider);
   const decimals = 6;
@@ -396,7 +408,6 @@ describe("matcher_settle (Stage 5 integration)", () => {
       .signers([mA])
       .rpc();
 
-    const { recheckCandidateState } = await import("../../packages/matcher/src/index");
     await recheckCandidateState({
       connection: provider.connection,
       candidate: cand,

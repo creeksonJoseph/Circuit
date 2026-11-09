@@ -26,8 +26,10 @@ reference.**
 
 ## Deployment and operations
 
-- [Deployment](DEPLOYMENT.md) — Devnet configuration and verified deployment
-  details.
+- [Deployment](DEPLOYMENT.md) — Devnet configuration, mainnet build/deploy
+  steps, and verified deployment details.
+- [Mainnet Readiness](MAINNET_READINESS.md) — go/no-go checklist, hard blockers,
+  and owner actions before real assets.
 - [Troubleshooting](TROUBLESHOOTING.md) — common build, RPC, account, and
   transaction failures.
 
